@@ -97,7 +97,7 @@ export function 그리기(자리) {
         h('h3', { class: 'sec' }, '5. 만드는 도구'),
         기술줄),
       h('div', { class: 'design-side' },
-        h('div', { class: 'card sticky' }, 점검자리),
+        h('div', { class: 'card' }, 점검자리),
         접이('📝 완성 예시 보기 (베끼지 말고 모양만 참고)',
           h('table', { class: 'tbl' }, h('tbody', {},
             ['과목', '주제', '대상', '아하', '예측', '화면', '결과'].map((k) => h('tr', {}, h('th', {}, k), h('td', {}, 예시설계[k]))),

@@ -81,7 +81,9 @@
 /* ── 설계하기 ── */
 .design-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
 .design-side > * + * { margin-top: 12px; }
-.sticky { position: sticky; top: 140px; }
+/* 오른쪽 칸 전체를 함께 붙인다. ⚠ 점검 카드 하나만 sticky 로 두면 그 아래 「완성 예시」·「막힐 때」 상자가
+   스크롤되며 카드 밑으로 겹쳐 지나간다(2026-11-10 겪음). 칸이 화면보다 길면 칸 안에서 스크롤한다. */
+.design-side { position: sticky; top: 140px; max-height: calc(100vh - 156px); overflow-y: auto; padding-bottom: 4px; }
 .check-head { font-weight: 900; font-size: 1.1rem; margin-bottom: 6px; }
 .ok-tag { color: var(--ok); }
 .check-item { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; border-bottom: 1px dashed var(--line); }
@@ -136,7 +138,7 @@ a.btn { display: inline-block; text-decoration: none; color: inherit; }
 /* ── 좁은 화면 ── */
 @media (max-width: 900px) {
   .design-layout { grid-template-columns: 1fr; }
-  .sticky { position: static; }
+  .design-side { position: static; max-height: none; overflow: visible; }
 }
 @media (max-width: 760px) {
   html, body { font-size: 16px; }
