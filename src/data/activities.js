@@ -9,8 +9,8 @@
  *  ⚠ 활동을 늘릴 때는 여기와 탭 화면을 함께 고친다. test/activities.test.mjs 가 어긋남을 잡는다.
  *  ⚠ DOM 을 만들지 말 것.
  */
-import { 개념문제, 아이디어문제, 변수문제, 눈문제 } from './quizzes.js';
-import { 설계완료, 링크검사, 글자수 } from '../engine/design.js';
+import { 개념문제, 아이디어문제, 변수문제, 눈문제, 캔버스문제 } from './quizzes.js';
+import { 설계완료, 링크검사, 파일이름검사, 글자수 } from '../engine/design.js';
 
 export { 글자수 };
 
@@ -33,6 +33,7 @@ export const 활동들 = [
   { key: 'design', 탭: 'design', 화면: 'main', 제목: '나의 만지는 설명 설계', 종류: 'design' },
   { key: 'eye-quiz', 탭: 'prompt', 화면: 'eye', 제목: '프로그래머의 눈 확인 문제', 종류: 'quiz', 문항: 눈문제 },
   { key: 'prompt', 탭: 'prompt', 화면: 'make', 제목: '프롬프트 조립해 복사하기', 종류: 'prompt' },
+  { key: 'canvas-quiz', 탭: 'prompt', 화면: 'tour', 제목: '캔버스 둘러보기 확인 문제', 종류: 'quiz', 문항: 캔버스문제 },
   { key: 'build', 탭: 'prompt', 화면: 'canvas', 제목: '캔버스로 만들고 고친 기록', 종류: 'build' },
   { key: 'pair', 탭: 'test', 화면: 'main', 제목: '짝 시험과 부숴 보기', 종류: 'pair' },
   { key: 'reflect', 탭: 'report', 화면: 'main', 제목: '오늘의 배움 정리', 종류: 'reflect' },
@@ -104,8 +105,9 @@ export function 완료인가(기록, 활동) {
     case 'prompt': return !!d.prompt?.복사;
     case 'build': {
       const b = d.build || {};
-      const 링크 = 링크검사(b.링크);
-      return 링크.ok && (b.기록 || []).some((r) => 글자수(r.요청) >= 최소글자.고친요청);
+      // 공유 링크가 막힌 학교 계정이면 HTML 파일로 내도 된다
+      const 냈음 = b.방식 === 'file' ? 파일이름검사(b.파일).ok : 링크검사(b.링크).ok;
+      return 냈음 && (b.기록 || []).some((r) => 글자수(r.요청) >= 최소글자.고친요청);
     }
     case 'pair': {
       const p = d.pair || {};

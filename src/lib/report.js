@@ -85,7 +85,9 @@ function 제작칸(기록) {
   const 눈 = d ? 눈목록.filter((e) => d.눈?.[e.id]).map((e) => e.이름) : [];
   const 글 = p?.글 || (d ? 프롬프트만들기(d) : '');
   const 링크 = 링크검사(b.링크);
-  const 링크칸 = b.링크 && 링크.ok ? `<a href="${이스케이프(b.링크)}">${이스케이프(b.링크)}</a>` : '<span class="empty">(붙이지 않음)</span>';
+  const 링크칸 = b.방식 === 'file'
+    ? `📄 HTML 파일로 냄 — ${b.파일 ? 이스케이프(b.파일) : '<span class="empty">(파일 이름 미입력)</span>'}`
+    : b.링크 && 링크.ok ? `<a href="${이스케이프(b.링크)}">${이스케이프(b.링크)}</a>` : '<span class="empty">(붙이지 않음)</span>';
   const 고친 = (b.기록 || []).filter((r) => String(r.요청 || '').trim());
   const 고친표 = 고친.length
     ? `<table class="q"><thead><tr><th>번호</th><th>고쳐 달라고 한 것</th><th>결과</th></tr></thead><tbody>${고친.map((r, i) => `<tr><td class="no">${i + 1}</td><td>${이스케이프(r.요청)}</td><td>${이스케이프(r.결과 || '-')}</td></tr>`).join('')}</tbody></table>`
@@ -94,7 +96,7 @@ function 제작칸(기록) {
 <p><b>켠 「프로그래머의 눈」</b>: ${눈.length ? 이스케이프(눈.join(' · ')) : '<span class="empty">(켜지 않음)</span>'}</p>
 <p><b>캔버스에 넣은 프롬프트</b>${p?.복사 ? '' : ' <span class="shown">(아직 복사하지 않음)</span>'}</p>
 <pre>${이스케이프(글) || '<span class="empty">(없음)</span>'}</pre>
-<p><b>내 앱 공유 링크</b>: ${링크칸}</p>
+<p><b>내 앱 낸 곳</b>: ${링크칸}</p>
 <h4>고친 기록</h4>${고친표}`;
 }
 
