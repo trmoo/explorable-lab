@@ -1,0 +1,21 @@
+{
+  "name": "explorable-lab",
+  "version": "1.0.0",
+  "description": "만지는 설명 실험실 — 익스플로러블 익스플래네이션을 설계하고 제미나이 캔버스로 바이브 코딩하는 정보 수업 앱",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node test/run.mjs",
+    "check:syntax": "node tools/check-syntax.mjs",
+    "sheet": "python tools/make_docx.py"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}
